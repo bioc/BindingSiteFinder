@@ -212,13 +212,16 @@ To present gene-level information we import the annotation as a .gff3 file into 
 library(GenomicFeatures)
 # Make annotation database from gff3 file
 annoFile = "./gencode_v37_annotation.gff3"
+
 annoDb = GenomicFeatures::makeTxDbFromGFF(file = annoFile, format = "gff3")
 annoInfo = rtracklayer::import(annoFile, format = "gff3")
 # Get genes as GRanges
 gns = genes(annoDb)
 idx = match(gns$gene_id, annoInfo$gene_id)
-elementMetadata(gns) = cbind(elementMetadata(gns),
-                             elementMetadata(annoInfo)[idx,])
+meta = cbind(elementMetadata(gns),
+             elementMetadata(annoInfo)[idx,])
+meta = meta[,!duplicated(colnames(meta))]
+elementMetadata(gns) = meta
 ```
 
 ```{r}
