@@ -62,6 +62,26 @@ test_that("Test for assignToGenes()", {
     expect_message(assignToGenes(object = obj3_manual, anno.genes = gns1))
     expect_message(expect_warning(assignToGenes(object = obj3_manual, anno.genes = gns1, overlaps = "remove")))
     expect_message(expect_warning(assignToGenes(object = obj3_manual, anno.genes = gns1, overlaps = "keep")))
+    
+    # test with duplicated gene annotation meta columns
+    gns1 = gns
+    meta = elementMetadata(gns1)
+    meta = cbind(meta, gene_id = meta$gene_id)
+    elementMetadata(gns1) = meta
+    expect_error(assignToGenes(object = obj3_manual, anno.genes = gns1))
+    
+    gns1 = gns
+    meta = elementMetadata(gns1)
+    meta = cbind(meta, gene_type = meta$gene_type)
+    elementMetadata(gns1) = meta
+    expect_error(assignToGenes(object = obj3_manual, anno.genes = gns1))
+    
+    gns1 = gns
+    meta = elementMetadata(gns1)
+    meta = cbind(meta, gene_name = meta$gene_name)
+    elementMetadata(gns1) = meta
+    expect_error(assignToGenes(object = obj3_manual, anno.genes = gns1))
+    
 
 })
 

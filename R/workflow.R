@@ -449,6 +449,19 @@ assignToGenes <- function(object,
         } else {
             datasource = "anno.genes"
             # extract relevant annotation
+            # check for duplicated annotation columns
+            if (sum(colnames(mcols(anno.genes)) == match.geneID) > 1) {
+                msg = paste0("The names of multiple columns of the annotation match the match.geneID parameter. Please use a unique column name for match.geneID in anno.genes.")
+                stop(msg)
+            }
+            if (sum(colnames(mcols(anno.genes)) == match.geneName) > 1) {
+                msg = paste0("The names of multiple columns of the annotation match the match.geneName parameter. Please use a unique column name for match.geneName in anno.genes.")
+                stop(msg)
+            }
+            if (sum(colnames(mcols(anno.genes)) == match.geneType) > 1) {
+                msg = paste0("The names of multiple columns of the annotation match the match.geneType parameter. Please use a unique column name for match.geneType in anno.genes.")
+                stop(msg)
+            }
             # check correct annotation columns
             inNames = c(match.geneID, match.geneName, match.geneType)
             annoColNames = colnames(mcols(anno.genes))
