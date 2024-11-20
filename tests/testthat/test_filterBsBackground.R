@@ -8,7 +8,7 @@ test_that("filterBsBackground works", {
     bds = makeBindingSites(bds, bsSize = 7)
     bds = assignToGenes(bds, anno.genes = gns)
     bds = imputeBsDifferencesForTestdata(bds)
-    bds = calculateBsBackground(bds, anno.genes = gns, use.offset = FALSE)
+    bds = expect_warning(calculateBsBackground(bds, anno.genes = gns, use.offset = FALSE))
 
     # tests
     c0 = expect_warning(filterBsBackground(bds, flag = FALSE))
