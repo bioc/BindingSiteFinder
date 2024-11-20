@@ -209,11 +209,11 @@ To take advantage of the full functionality of the package one needs to provide 
 To present gene-level information we import the annotation as a .gff3 file into a `GenomicRanges` object. To combine the ranges with the available meta information for each gene (such as a `gene_id`, `gene_name` or `gene_type`), we have to read our annotation twice. First, we import the ranges into a `TxDB` database using functionalists from [GenomicFeatures](https://bioconductor.org/packages/release/bioc/html/GenomicFeatures.html). This database can be queried using the `genes()` function to retrieve the positions of all genes from our resource as `GRanges` objects^[Note: It is of particular importance that one uses a valid format for the *geneID* (ENSEMBL, UCSC, ...) at this point.]. Second we use `rtracklayer` to import all ranges with the corresponding meta information. We then match both imports to create a single `GRanges` object which contains all genes from our annotation with relevant meta information added^[Note: We again only load a previously compiled object at this point to save disc space.].
 
 ```{r, echo=TRUE, eval=FALSE}
-library(GenomicFeatures)
+library(txdbmaker)
 # Make annotation database from gff3 file
 annoFile = "./gencode_v37_annotation.gff3"
 
-annoDb = GenomicFeatures::makeTxDbFromGFF(file = annoFile, format = "gff3")
+annoDb = txdbmaker::makeTxDbFromGFF(file = annoFile, format = "gff3")
 annoInfo = rtracklayer::import(annoFile, format = "gff3")
 # Get genes as GRanges
 gns = genes(annoDb)

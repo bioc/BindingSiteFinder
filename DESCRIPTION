@@ -30,7 +30,7 @@ Imports: tidyr, tibble, plyr, matrixStats, stats, ggplot2, methods, rtracklayer,
 Depends: GenomicRanges, R (>= 4.2)
 Suggests: testthat, BiocStyle, knitr, rmarkdown, GenomicAlignments, scales, Gviz,
     xlsx, GGally, patchwork, viridis, ggplotify, SummarizedExperiment, DESeq2,
-    ggpointdensity, ggrastr, ashr
+    ggpointdensity, ggrastr, ashr, txdbmaker
 RoxygenNote: 7.2.3
 Collate: 
     'AllClasses.R'
